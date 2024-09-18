@@ -40,12 +40,12 @@ class TestHomePage:
         user = HomePage(self.driver)
         assert user.CHECKOUT_BTN
 
-    @allure.severity(Severity.BLOCKER)
-    @allure.description("Verify checkout button exist in home page")
-    @allure.title("Checkout button exist")
-    def test_checkout_btn_exist(self):
-        user = HomePage(self.driver)
-        # user.click(user.CONTINUE_BTN)
-        checkout_url = "https://account.next.co.il/en/login/Checkout"
-        # current_url = self.driver.current_url
-        assert checkout_url
+    # @allure.severity(Severity.BLOCKER)
+    # @allure.description("Verify click on checkout button from home page will open checkout page")
+    # @allure.title("Checkout button opens checkout page")
+    # def test_checkout_functionality(self):
+    #     user = HomePage(self.driver)
+    #     user.click(user.CONTINUE_BTN)
+    #     checkout_url = "https://account.next.co.il/en/login/Checkout"
+    #     current_url = self.driver.current_url
+    #     assert current_url == checkout_url
