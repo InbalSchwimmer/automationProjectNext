@@ -3,7 +3,7 @@ import time
 import allure
 from allure_commons.types import Severity
 
-from pages.home_page import HomePage
+from pages.next_home_page import NextHomePage
 
 
 # @allure.description("Verify change Israel to Ireland country will saved")
@@ -14,7 +14,7 @@ class TestHomePage:
     @allure.description("Verify Israel flag display in country selector")
     @allure.title("Open website from Israel - Israel flag displayed")
     def test_default_shopping_country(self):
-        user = HomePage(self.driver)
+        user = NextHomePage(self.driver)
         user.accept_all_cookies()
         assert user.ISRAEL_LOCATION
 
@@ -23,7 +23,7 @@ class TestHomePage:
     @allure.title("Change shopping country flag")
     def test_country_selector(self):
         with allure.step("Change location to australia"):
-            user = HomePage(self.driver)
+            user = NextHomePage(self.driver)
             user.change_shopping_country(user.IRELAND_LOCATION_OPTION)
             user.accept_all_cookies()
             user.click(user.CLOSE_COUNTRY_SELECTOR_WINDOW)
@@ -37,7 +37,7 @@ class TestHomePage:
     @allure.description("Verify checkout button displays")
     @allure.title("Checkout button exist")
     def test_checkout_btn(self):
-        user = HomePage(self.driver)
+        user = NextHomePage(self.driver)
         assert user.CHECKOUT_BTN
 
     # @allure.severity(Severity.BLOCKER)
