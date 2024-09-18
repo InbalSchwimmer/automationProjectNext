@@ -8,7 +8,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from pages.base_page import BasePage
 
 
-class HomePage(BasePage):
+class NextHomePage(BasePage):
     HOME_CATEGORY_BTN = (By.CSS_SELECTOR, "#meganav-link-6")
     COUNTRY_SELECTOR_BTN = (By.CSS_SELECTOR, "[data-testid='header-country-lang-flag']")
     LOCATION_DROPDOWN = (By.CSS_SELECTOR, "#mui-component-select-country-selector-select")
