@@ -9,7 +9,6 @@ from pages.base_page import BasePage
 
 
 class NextHomePage(BasePage):
-    HOME_CATEGORY_BTN = (By.CSS_SELECTOR, "#meganav-link-6")
     COUNTRY_SELECTOR_BTN = (By.CSS_SELECTOR, "[data-testid='header-country-lang-flag']")
     LOCATION_DROPDOWN = (By.CSS_SELECTOR, "#mui-component-select-country-selector-select")
     LOCATION_SHOP_NOW_BTN = (By.XPATH, "//button[text() = 'SHOP NOW']")
@@ -25,8 +24,6 @@ class NextHomePage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    def open_menu_category(self, category):
-        self.click(self.HOME_CATEGORY_BTN)
 
     def change_shopping_country(self, location):
         self.click(self.COUNTRY_SELECTOR_BTN)

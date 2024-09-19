@@ -8,7 +8,13 @@ from pages.next_home_page import NextHomePage
 
 # @allure.description("Verify change Israel to Ireland country will saved")
 # @allure.title("Open website from Israel - Israel flag displayed")
-@allure.title("Change shopping country flag")
+@allure.epic("User Interface and Navigation Testing")
+@allure.feature("Homepage Functionality")
+@allure.story("Verify core elements and user interactions on the homepage")
+@allure.description("This scenario focuses on ensuring that the homepage displays correctly, with all essential "
+                    "elements present and functional. It includes testing the visibility of the logo, navigation"
+                    " menus, promotional banners, and call-to-action buttons. The goal is to ensure a seamless user"
+                    "experience from the first interaction.")
 class TestHomePage:
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify Israel flag display in country selector")
@@ -39,6 +45,9 @@ class TestHomePage:
     def test_checkout_btn(self):
         user = NextHomePage(self.driver)
         assert user.CHECKOUT_BTN
+
+
+
 
     # @allure.severity(Severity.BLOCKER)
     # @allure.description("Verify click on checkout button from home page will open checkout page")
