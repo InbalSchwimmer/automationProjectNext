@@ -24,7 +24,6 @@ class NextHomePage(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-
     def change_shopping_country(self, location):
         self.click(self.COUNTRY_SELECTOR_BTN)
         self.click(self.LOCATION_DROPDOWN)
@@ -52,4 +51,3 @@ class NextHomePage(BasePage):
             self.click(self.CONTINUE_BTN)
         except NoSuchElementException:
             print("Continue Button does not exist on the page.")
-

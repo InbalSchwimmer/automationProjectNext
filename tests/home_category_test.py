@@ -33,8 +33,7 @@ class TestHomeCategory:
     @allure.title("Open living room page from homeware")
     def test_open_living_room_subcategory(self):
         shopper = HomeCategory(self.driver)
-        shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
-        shopper.click(shopper.LIVING_ROOM_SUBCATEGORY)
+        shopper.open_living_room_subcategory()
         living_room_page_url = "https://www.next.co.il/en/shop/department-homeware-productaffiliation-livingroom-0"
         current_url = self.driver.current_url
         assert living_room_page_url == current_url
@@ -44,8 +43,7 @@ class TestHomeCategory:
     @allure.title("Living room page title")
     def test_open_living_room_subcategory(self):
         shopper = HomeCategory(self.driver)
-        shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
-        shopper.click(shopper.LIVING_ROOM_SUBCATEGORY)
+        shopper.open_living_room_subcategory()
         title = shopper.get_text(shopper.LIVING_ROOM_SUBCATEGORY_TITLE)
         assert title == "All Living Room"
 
@@ -55,8 +53,7 @@ class TestHomeCategory:
     def test_sort_living_room_page_results_low_to_high(self):
         shopper = HomeCategory(self.driver)
         product = ProductDetails(self.driver)
-        shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
-        shopper.click(shopper.LIVING_ROOM_SUBCATEGORY)
+        shopper.open_living_room_subcategory()
         shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
         shopper.click(shopper.SORT_LOW_TO_HIGH_PRODUCT1)
         price1 = product.get_price(shopper.get_text(product.PRODUCT_PRICE))
@@ -70,8 +67,7 @@ class TestHomeCategory:
     @allure.title("Active red badge - favorites")
     def test_favorite_product_active_badge(self):
         shopper = HomeCategory(self.driver)
-        shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
-        shopper.click(shopper.LIVING_ROOM_SUBCATEGORY)
+        shopper.open_living_room_subcategory()
         shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
         shopper.click(shopper.ADD_PRODUCT_TO_FAVORITES_BTN)
         assert shopper.ACTIVE_FAVORITE_BADGE
@@ -84,8 +80,7 @@ class TestHomeCategory:
     @allure.title("Inactive red badge - favorites")
     def test_favorite_product_inactive_badge(self):
         shopper = HomeCategory(self.driver)
-        shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
-        shopper.click(shopper.LIVING_ROOM_SUBCATEGORY)
+        shopper.open_living_room_subcategory()
         shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
         shopper.click(shopper.ADD_PRODUCT_TO_FAVORITES_BTN)
         shopper.click(shopper.REMOVE_PRODUCT_FROM_FAVORITES_BTN)
@@ -97,11 +92,9 @@ class TestHomeCategory:
     @allure.description("Verify filter by colour will display product as was requested")
     @allure.title("Filter results by colour")
     def test_filter_products_list_by_colour(self):
-        with allure.step("login page steps"):
-            shopper = HomeCategory(self.driver)
-            shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
         with allure.step("Open homeware page"):
-            shopper.click(shopper.LIVING_ROOM_SUBCATEGORY)
+            shopper = HomeCategory(self.driver)
+            shopper.open_living_room_subcategory()
         with allure.step("Choose filter colour"):
             shopper.click(shopper.FILTER_BY_COLOR_BTN)
             shopper.click(shopper.BLUE_CHECK_BOX)
