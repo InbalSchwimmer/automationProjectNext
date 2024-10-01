@@ -14,6 +14,8 @@ class BasePage:
     SORT_BY_PRICE_LOW_HIGH = (By.CSS_SELECTOR, "[data-value='price']")
     FILTER_BY_COLOR_BTN = (By.CSS_SELECTOR,"[aria-label='Colour']")
     BLUE_CHECK_BOX = (By.CSS_SELECTOR, "[name='plp-facet-checkbox-colour:blue']")
+    SHOPPING_BAG_BTN = (By.CSS_SELECTOR, "[data-testid='header-shopping-bag']")
+    FAVORITES_BTN = (By.CSS_SELECTOR, ".favourites.header-ogfstg")
 
     def click(self, locator):
         time.sleep(1)
