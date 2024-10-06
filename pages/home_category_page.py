@@ -9,7 +9,6 @@ class HomeCategory(BasePage):
     HOME_WARE_TITLE = (By.CSS_SELECTOR, ".font--weightBolder")
     LIVING_ROOM_SUBCATEGORY = (By.XPATH, "//a[@class='sidebar-links' and text()='Living Room']")
     LIVING_ROOM_SUBCATEGORY_TITLE = (By.XPATH, "//h1[text() = 'All Living Room']")
-    # PRODUCTS = (By.XPATH, "//div[contains(@class, 'produc-')]")
     PRODUCTS = (By.CSS_SELECTOR, ".produc-gzdrrz")
     SORT_LOW_TO_HIGH_PRODUCT1 = (By.CSS_SELECTOR, "[aria-label='Orange Pumpkin Halloween Bathroom Door Sign ₪ 18']")
     SORT_LOW_TO_HIGH_PRODUCT2 = (By.CSS_SELECTOR, "[aria-label='Grey Chester The Cat Ring Holder ₪ 21']")

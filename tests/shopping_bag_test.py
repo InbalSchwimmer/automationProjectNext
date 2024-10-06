@@ -8,6 +8,7 @@ from pages.shopping_bag_page import ShoppingBag
 
 
 class TestShoppingBag:
+
     def test_add_two_product_to_bag(self):
         shopper = HomeCategory(self.driver)
         shopper.open_living_room_subcategory()
