@@ -32,6 +32,10 @@ class BasePage:
         self.click(self.SORT_BTN)
         self.click(locator)
 
+    def get_price(self, locator):
+        price = self.get_text(locator)
+        return int(price.replace('₪', '').strip())  # return price in int
+
     # def choose_product_from_page_list(self, locator):
     #         products = self.driver.find_elements(By.XPATH, "//div[contains(@class, 'produc-')]")
     #         return products[locator]

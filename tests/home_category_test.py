@@ -56,10 +56,10 @@ class TestHomeCategory:
         shopper.open_living_room_subcategory()
         shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
         shopper.click(shopper.SORT_LOW_TO_HIGH_PRODUCT1)
-        price1 = product.get_price(shopper.get_text(product.PRODUCT_PRICE))
+        price1 = shopper.get_price(product.PRODUCT_PRICE)
         shopper.driver.back()
         shopper.click(shopper.SORT_LOW_TO_HIGH_PRODUCT2)
-        price2 = product.get_price(shopper.get_text(product.PRODUCT_PRICE))
+        price2 = shopper.get_price(product.PRODUCT_PRICE)
         assert price1 < price2
 
     @allure.severity(Severity.NORMAL)
