@@ -11,7 +11,7 @@ from pages.shopping_bag_page import ShoppingBag
 
 class TestShoppingBag:
 
-    def setup_shopper_and_add_product(self):
+    def add_product_to_shopping_bag(self):
         """Helper method to perform common steps for adding a product to the shopping bag."""
         shopper = HomeCategory(self.driver)
         shopper.open_living_room_subcategory()
@@ -36,7 +36,7 @@ class TestShoppingBag:
     @allure.description("Verify click on add button will add product to shopping bag")
     @allure.title("Add product to shopping bag")
     def test_add_product_to_bag(self):
-        shopping_bag = self.setup_shopper_and_add_product()
+        shopping_bag = self.add_product_to_shopping_bag()
         with allure.step("Verify one product was added to the bag"):
             assert shopping_bag.get_text(shopping_bag.PRODUCT_QUANTITY) == "1"
 
@@ -44,7 +44,7 @@ class TestShoppingBag:
     @allure.description("Verify click on remove button will remove product from shopping bag")
     @allure.title("Remove product from shopping bag")
     def test_remove_product_from_bag(self):
-        shopping_bag = self.setup_shopper_and_add_product()
+        shopping_bag = self.add_product_to_shopping_bag()
         with allure.step("Remove product from shopping bag"):
             shopping_bag.click(shopping_bag.REMOVE_ITEM_LINK)
         time.sleep(2)
@@ -55,7 +55,7 @@ class TestShoppingBag:
     @allure.description("Verify product value display matches the value displayed in the homeware page")
     @allure.title("Product value")
     def test_order_value(self):
-        shopping_bag = self.setup_shopper_and_add_product()
+        shopping_bag = self.add_product_to_shopping_bag()
         with allure.step("Verify product value displays correctly"):
             order_value = shopping_bag.get_price(shopping_bag.ITEM_VALUE)
             assert order_value == 159.0
@@ -64,7 +64,7 @@ class TestShoppingBag:
     @allure.description("Verify item quantity can be changed and the price updates accordingly")
     @allure.title("Change product quantity")
     def test_change_item_quantity(self):
-        shopping_bag = self.setup_shopper_and_add_product()
+        shopping_bag = self.add_product_to_shopping_bag()
         with allure.step("Change product quantity from 1 to 2"):
             shopping_bag.select_product_quantity("2")
         with allure.step("Verify the total order value is correct"):
@@ -75,7 +75,7 @@ class TestShoppingBag:
     @allure.description("Verify clicking on Shop More link opens the Next home page")
     @allure.title("Continue shopping")
     def test_continue_shopping_link(self):
-        shopping_bag = self.setup_shopper_and_add_product()
+        shopping_bag = self.add_product_to_shopping_bag()
         with allure.step("Click on 'Shop more' link"):
             shopping_bag.click(shopping_bag.SHOP_MORE_LINK)
         with allure.step("Verify Next home page is displayed"):
@@ -86,7 +86,7 @@ class TestShoppingBag:
     @allure.description("Verify clicking on Save for later link saves the product")
     @allure.title("Save product for later")
     def test_save_product_for_later(self):
-        shopping_bag = self.setup_shopper_and_add_product()
+        shopping_bag = self.add_product_to_shopping_bag()
         with allure.step("Click on 'Save for later' link"):
             shopping_bag.click(shopping_bag.SAVE_FOR_LATER_LINK)
         with allure.step("Verify the product is moved to the saved items section"):
