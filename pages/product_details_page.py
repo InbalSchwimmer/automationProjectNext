@@ -10,5 +10,3 @@ class ProductDetails(BasePage):
     def __init__(self, driver):
         super().__init__(driver)
 
-    def get_price(self, price):
-        return int(price.replace('₪', '').strip())  # return price in int

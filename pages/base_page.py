@@ -3,6 +3,8 @@ import time
 from selenium.common import TimeoutException, NoSuchElementException
 from selenium.webdriver.chrome.webdriver import WebDriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class BasePage:
@@ -32,6 +34,11 @@ class BasePage:
         self.click(self.SORT_BTN)
         self.click(locator)
 
-    # def choose_product_from_page_list(self, locator):
-    #         products = self.driver.find_elements(By.XPATH, "//div[contains(@class, 'produc-')]")
-    #         return products[locator]
+    def get_price(self, locator):
+        try:
+            WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+        except TimeoutException:
+            raise ValueError("Price element was not found or visible within the time limit.")
+        price = self.get_text(locator)  # Get the text from the element
+        return float(price.replace('₪', '').strip())  # return price in float
+
