@@ -4,10 +4,9 @@ import allure
 from allure_commons.types import Severity
 
 from pages.next_home_page import NextHomePage
+from utills.config import ConfigReader
 
 
-# @allure.description("Verify change Israel to Ireland country will saved")
-# @allure.title("Open website from Israel - Israel flag displayed")
 @allure.epic("User Interface and Navigation Testing")
 @allure.feature("Homepage Functionality")
 @allure.story("Verify core elements and user interactions on the homepage")
@@ -23,7 +22,7 @@ class TestHomePage:
         user = NextHomePage(self.driver)
         user.accept_all_cookies()
         with allure.step("Verify Israel flag display in right hand side country selector"):
-            assert user.ISRAEL_LOCATION
+            assert user.element_exist(user.ISRAEL_LOCATION)
 
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify change Israel to Ireland country will saved")
@@ -40,5 +39,5 @@ class TestHomePage:
             allure.attach(body=self.driver.get_screenshot_as_png(), name="screenshot", attachment_type=allure.
                           attachment_type.PNG)
         with allure.step("Verify Ireland flag display"):
-            assert user.IRELAND_LOCATION
+            assert user.element_exist(user.IRELAND_LOCATION)
             user.change_shopping_country(user.ISRAEL_LOCATION_OPTION)
