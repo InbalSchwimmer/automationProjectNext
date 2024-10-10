@@ -42,3 +42,12 @@ class BasePage:
         price = self.get_text(locator)  # Get the text from the element
         return float(price.replace('₪', '').strip())  # return price in float
 
+    def element_exist(self, locator):
+        try:
+            time.sleep(1)
+            self.driver.find_element(*locator)
+            return True
+        except NoSuchElementException:
+            return False
+
+
