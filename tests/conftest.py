@@ -8,12 +8,6 @@ from selenium.webdriver.chrome.options import Options
 from utills.config import ConfigReader
 
 
-def pytest_exception_interact(report):
-    if report.failed:
-        allure.attach(body=driver.get_screenshot_as_png(), name="screenshot",
-                      attachment_type=allure.attachment_type.PNG)
-
-
 @pytest.fixture(scope="class", autouse=True)
 def setup(request):
     options = Options()
@@ -28,6 +22,11 @@ def setup(request):
     driver.get(url)
     yield
     driver.quit()
+
+    def pytest_exception_interact(report):
+        if report.failed:
+            allure.attach(body=driver.get_screenshot_as_png(), name="screenshot",
+                          attachment_type=allure.attachment_type.PNG)
 
     def pytest_sessionfinish() -> None:
         environment_properties = {

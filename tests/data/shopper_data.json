@@ -1,0 +1,14 @@
+{
+    "valid_credentials": [
+        {"first_name": "Inbal", "last_name": "Shafir", "email": "InbalSh2@hotmail.com", "telephone": "521122112",
+          "street": "Mashabim 20","city": "Hod Hasharon","zip_code": "4520125"}
+    ],
+    "invalid_email": [
+        {"first_name": "Inbal", "last_name": "Shafir", "email": "InbalSh2hotmail.com", "telephone": "521122112",
+          "street": "Mashabim 20","city": "Hod Hasharon","zip_code": "4520125"},
+        {"first_name": "Inbal", "last_name": "Shafir", "email": "", "telephone": "521122112",
+          "street": "Mashabim 20","city": "Hod Hasharon","zip_code": "4520125"},
+        {"first_name": "Inbal", "last_name": "Shafir", "email": "InbalSh2@hotmail", "telephone": "521122112",
+          "street": "Mashabim 20","city": "Hod Hasharon","zip_code": "4520125"}
+    ]
+}

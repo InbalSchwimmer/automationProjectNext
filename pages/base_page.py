@@ -24,6 +24,7 @@ class BasePage:
         self.driver.find_element(*locator).click()
 
     def get_text(self, locator):
+        time.sleep(1)
         return self.driver.find_element(*locator).text
 
     def fill_text(self, locator, text):

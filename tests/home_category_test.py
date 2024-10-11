@@ -7,6 +7,8 @@ from pages.home_category_page import HomeCategory
 from pages.product_details_page import ProductDetails
 from selenium.webdriver.support import expected_conditions as EC
 
+from utills.config import ConfigReader
+
 
 class TestHomeCategory:
     @allure.severity(Severity.CRITICAL)
@@ -15,7 +17,7 @@ class TestHomeCategory:
     def test_open_homeware_page(self):
         shopper = HomeCategory(self.driver)
         shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
-        home_category_url = "https://www.next.co.il/en/homeware"
+        home_category_url = ConfigReader.read_config("general", "home_category_url")
         current_url = self.driver.current_url
         assert current_url == home_category_url
 
@@ -28,7 +30,9 @@ class TestHomeCategory:
             shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
         with allure.step("Get homeware title and verify title is 'THE HOME SHOP'"):
             title = shopper.get_text(shopper.HOME_WARE_TITLE)
-            assert title == "THE HOME SHOP"
+            # read title form config.ini
+            expected_title = ConfigReader.read_config("titles", "homeware_title")
+            assert title == expected_title
 
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify click on living room subcategory will open living room page by verifying the page url")
@@ -37,7 +41,8 @@ class TestHomeCategory:
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page - sub category 'Living room'"):
             shopper.open_living_room_subcategory()
-        living_room_page_url = "https://www.next.co.il/en/shop/department-homeware-productaffiliation-livingroom-0"
+        # get the page url from config.ini
+        living_room_page_url = ConfigReader.read_config("general", "living_room_page_url")
         with allure.step("Verify url is"):
             current_url = self.driver.current_url
             assert living_room_page_url == current_url
@@ -50,8 +55,10 @@ class TestHomeCategory:
         with allure.step("Open homeware page - sub category 'Living room'"):
             shopper.open_living_room_subcategory()
         title = shopper.get_text(shopper.LIVING_ROOM_SUBCATEGORY_TITLE)
+        # read title form config.ini
+        expected_title=ConfigReader.read_config("titles", "living_room_subcategory_title")
         with allure.step("Verify title of the page is 'All Living Room'"):
-            assert title == "All Living Room"
+            assert title == expected_title
 
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify sort low to high price option will sort products as design")
