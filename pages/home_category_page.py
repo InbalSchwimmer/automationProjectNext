@@ -17,6 +17,7 @@ class HomeCategory(BasePage):
     INACTIVE_FAVORITE_BADGE = (By.CSS_SELECTOR, "[data-testid='header-fav-badge-inactive']")
     REMOVE_PRODUCT_FROM_FAVORITES_BTN = (By.CSS_SELECTOR, "[data-testid='product-active-favourite-icon']")
     FIRST_HOMEWARE_BLUE_PRODUCT = (By.CSS_SELECTOR, ".produc-ivbv8a:first-of-type")
+    FIRST_LIVING_ROOM_PRODUCT = (By.XPATH, "//p[contains(text(), 'Natural Wooden Global Pill Shelves')]")
 
     def __init__(self, driver):
         super().__init__(driver)

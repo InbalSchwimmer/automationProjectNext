@@ -4,10 +4,9 @@ import allure
 from allure_commons.types import Severity
 
 from pages.next_home_page import NextHomePage
+from utills.config import ConfigReader
 
 
-# @allure.description("Verify change Israel to Ireland country will saved")
-# @allure.title("Open website from Israel - Israel flag displayed")
 @allure.epic("User Interface and Navigation Testing")
 @allure.feature("Homepage Functionality")
 @allure.story("Verify core elements and user interactions on the homepage")
@@ -22,39 +21,23 @@ class TestHomePage:
     def test_default_shopping_country(self):
         user = NextHomePage(self.driver)
         user.accept_all_cookies()
-        assert user.ISRAEL_LOCATION
+        with allure.step("Verify Israel flag display in right hand side country selector"):
+            assert user.element_exist(user.ISRAEL_LOCATION)
 
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify change Israel to Ireland country will saved")
     @allure.title("Change shopping country flag")
     def test_country_selector(self):
-        with allure.step("Change location to australia"):
+        with allure.step("Change location to Ireland"):
             user = NextHomePage(self.driver)
+        with allure.step("Open window for change shopper country and change it to Ireland"):
             user.change_shopping_country(user.IRELAND_LOCATION_OPTION)
             user.accept_all_cookies()
+        with allure.step("Close change shopper country window"):
             user.click(user.CLOSE_COUNTRY_SELECTOR_WINDOW)
             time.sleep(10)
             allure.attach(body=self.driver.get_screenshot_as_png(), name="screenshot", attachment_type=allure.
                           attachment_type.PNG)
-            assert user.IRELAND_LOCATION
+        with allure.step("Verify Ireland flag display"):
+            assert user.element_exist(user.IRELAND_LOCATION)
             user.change_shopping_country(user.ISRAEL_LOCATION_OPTION)
-
-    @allure.severity(Severity.BLOCKER)
-    @allure.description("Verify checkout button displays")
-    @allure.title("Checkout button exist")
-    def test_checkout_btn(self):
-        user = NextHomePage(self.driver)
-        assert user.CHECKOUT_BTN
-
-
-
-
-    # @allure.severity(Severity.BLOCKER)
-    # @allure.description("Verify click on checkout button from home page will open checkout page")
-    # @allure.title("Checkout button opens checkout page")
-    # def test_checkout_functionality(self):
-    #     user = HomePage(self.driver)
-    #     user.click(user.CONTINUE_BTN)
-    #     checkout_url = "https://account.next.co.il/en/login/Checkout"
-    #     current_url = self.driver.current_url
-    #     assert current_url == checkout_url
