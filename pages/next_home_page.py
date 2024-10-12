@@ -13,11 +13,11 @@ class NextHomePage(BasePage):
     LOCATION_DROPDOWN = (By.CSS_SELECTOR, "#mui-component-select-country-selector-select")
     LOCATION_SHOP_NOW_BTN = (By.XPATH, "//button[text() = 'SHOP NOW']")
     ISRAEL_LOCATION = (By.XPATH, "//img[@alt='IL']")
-    IRELAND_LOCATION = (By.XPATH, "//img[@alt='IE'")
+    IRELAND_LOCATION = (By.XPATH, "//img[@alt='IE']")
     IRELAND_LOCATION_OPTION = (By.CSS_SELECTOR, "[data-value='IE']")
     ISRAEL_LOCATION_OPTION = (By.CSS_SELECTOR, "[data-value='IL']")
     CONTINUE_BTN = (By.CSS_SELECTOR, "[data-testid='header-country-change-modal-confirm']")
-    ACCEPT_ALL_COOLIES_BTN = (By.CSS_SELECTOR, "#onetrust-accept-btn-handler")
+    ACCEPT_ALL_COOLIES_BTN = (By.XPATH, "//button[@id = 'onetrust-accept-btn-handler']")
     CLOSE_COUNTRY_SELECTOR_WINDOW = (By.CSS_SELECTOR, "[data-testid='country-selector-close-button']")
     COUNTRY_SELECTOR_ENGLISH_BTN = (By.CSS_SELECTOR, "[data-ga-v3='English']")
 
@@ -35,7 +35,7 @@ class NextHomePage(BasePage):
     def accept_all_cookies(self):
         try:
             # Wait for the button to be visible and clickable
-            wait = WebDriverWait(self.driver, 10)
+            wait = WebDriverWait(self.driver, 15)
             wait.until(EC.element_to_be_clickable(self.ACCEPT_ALL_COOLIES_BTN))
             self.click(self.ACCEPT_ALL_COOLIES_BTN)
         except TimeoutException:

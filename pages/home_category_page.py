@@ -5,7 +5,7 @@ from pages.base_page import BasePage
 
 class HomeCategory(BasePage):
     THE_HOME_SHOP_BTN = (By.CSS_SELECTOR, "[data-ga-v3='THE HOME SHOP']")
-    HOME_CATEGORY_BTN = (By.CSS_SELECTOR, "#meganav-link-6")
+    HOME_CATEGORY_BTN = (By.CSS_SELECTOR, "[data-title='HOME']")
     HOME_WARE_TITLE = (By.CSS_SELECTOR, ".font--weightBolder")
     LIVING_ROOM_SUBCATEGORY = (By.XPATH, "//a[@class='sidebar-links' and text()='Living Room']")
     LIVING_ROOM_SUBCATEGORY_TITLE = (By.XPATH, "//h1[text() = 'All Living Room']")
