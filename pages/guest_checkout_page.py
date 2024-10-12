@@ -19,6 +19,7 @@ class GuestCheckout(BasePage):
     PROVINCE_HAMERKAZ = (By.CSS_SELECTOR, "[value='HAMERKAZ']")
     CONTINUE_BTN = (By.CSS_SELECTOR, "#SignupButton")
     ERROR_EMAIL = (By.CSS_SELECTOR, "#Email-error")
+    NEXT_LOGO = (By.CSS_SELECTOR, "[data-ga='NEXT Home Page']")
 
     def __init__(self, driver):
         super().__init__(driver)

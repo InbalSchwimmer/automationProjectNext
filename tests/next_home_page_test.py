@@ -32,6 +32,7 @@ class TestHomePage:
             user = NextHomePage(self.driver)
         with allure.step("Open window for change shopper country and change it to Ireland"):
             user.change_shopping_country(user.IRELAND_LOCATION_OPTION)
+        with allure.step("Accept all coolies"):
             user.accept_all_cookies()
         with allure.step("Close change shopper country window"):
             user.click(user.CLOSE_COUNTRY_SELECTOR_WINDOW)
@@ -40,4 +41,4 @@ class TestHomePage:
                           attachment_type.PNG)
         with allure.step("Verify Ireland flag display"):
             assert user.element_exist(user.IRELAND_LOCATION)
-            user.change_shopping_country(user.ISRAEL_LOCATION_OPTION)
+        user.change_shopping_country(user.ISRAEL_LOCATION_OPTION)

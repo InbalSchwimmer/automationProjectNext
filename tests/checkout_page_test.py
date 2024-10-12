@@ -30,6 +30,9 @@ class TestCheckout:
     def test_fill_shopper_detail_success(self, load_test_data):
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page - sub category 'Living room'"):
+            WebDriverWait(self.driver,20).until(
+                EC.visibility_of_element_located(shopper.HOME_CATEGORY_BTN)
+            )
             shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
             shopper.open_living_room_subcategory()
         WebDriverWait(self.driver, 10).until(
@@ -61,14 +64,20 @@ class TestCheckout:
             )
 
             shop_as_guest.click(shop_as_guest.CONTINUE_BTN)
-            current_url = self.driver.current_url
+            # current_url = self.driver.current_url
             # expected_url = ConfigReader.read_config("general", "home_category_url")
-            expected_url = self.driver.current_url
+            # assert current_url == expected_url
             assert True  # Replace with your actual assertion logic when using valid credentials
+            # Navigate back to the previous page
+            self.driver.back()
+            shop_as_guest.click(shop_as_guest.NEXT_LOGO)
 
     def test_guest_email_invalid(self, load_test_data):
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page - sub category 'Living room'"):
+            WebDriverWait(self.driver,10).until(
+                EC.visibility_of_element_located(shopper.HOME_CATEGORY_BTN)
+            )
             shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
             shopper.open_living_room_subcategory()
         WebDriverWait(self.driver, 10).until(
