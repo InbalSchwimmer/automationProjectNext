@@ -1,10 +1,14 @@
 
 
 # 🌐 Next website -  Automation Project 🌐
-⭐ This is a testing automation demo project that tests a 'NEXT' real shopping site.
-  <img src="ScreenShots/nextWebsite.jpg" width="40%" alt="Example for screenshot on failure" />
+⭐ This is a testing automation demo project that tests 'NEXT' real shopping site. ⭐
 
-⭐ https://www.next.co.il/en
+  <p align="left">
+  <img src="ScreenShots/nextWebsite.jpg" width="40%" alt="Example for screenshot on failure" />
+  </p>
+  
+🔗  https://www.next.co.il/en
+
 
 
 ## 📖 Overview
@@ -47,7 +51,8 @@ The project follows the Page Object Model (POM) design pattern for a modular and
 - Install JDK.
 
 
-## 🚀 Getting Started
+
+## 🏁 Getting Started
 
 1. **Clone the Repository:**
    ```bash
