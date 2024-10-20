@@ -72,7 +72,7 @@ class TestCheckout:
             self.driver.back()
             shop_as_guest.click(shop_as_guest.NEXT_LOGO)
 
-    def test_guest_email_invalid(self, load_test_data):
+    def test_guest_invalid_email(self, load_test_data):
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page - sub category 'Living room'"):
             WebDriverWait(self.driver,10).until(
