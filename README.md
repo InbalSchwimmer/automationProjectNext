@@ -1,8 +1,10 @@
 
 
 # 🌐 Next website -  Automation Project 🌐
-🌟⭐ This is a testing automation demo project that tests a real site called: 
-https://www.next.co.il/en
+⭐ This is a testing automation demo project that tests a 'NEXT' real shopping site.
+  <img src="ScreenShots/nextWebsite.jpg" width="40%" alt="Example for screenshot on failure" />
+
+⭐ https://www.next.co.il/en
 
 
 ## 📖 Overview
@@ -37,7 +39,6 @@ The project follows the Page Object Model (POM) design pattern for a modular and
 ## 📊 Reports Examples
 <p>
   <img src="ScreenShots/allure_report_example.jpg" width="40%" title="Example for screenshot on failure"  />
-  <img src="ScreenShots/nextWebsite.jpg" width="40%" alt="Example for screenshot on failure" />
 </p>
 
 
