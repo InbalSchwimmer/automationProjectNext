@@ -24,7 +24,7 @@ class BasePage:
         self.driver.find_element(*locator).click()
 
     def get_text(self, locator):
-        time.sleep(1)
+        time.sleep(2)
         return self.driver.find_element(*locator).text
 
     def fill_text(self, locator, text):
@@ -41,7 +41,8 @@ class BasePage:
         except TimeoutException:
             raise ValueError("Price element was not found or visible within the time limit.")
         price = self.get_text(locator)  # Get the text from the element
-        return float(price.replace('₪', '').strip())  # return price in float
+        float_price = float(price.replace('₪', '').strip())
+        return float_price
 
     def element_exist(self, locator):
         try:

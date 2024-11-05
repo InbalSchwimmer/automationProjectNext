@@ -1,4 +1,5 @@
 import allure
+import pytest
 from allure_commons.types import Severity
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -11,6 +12,7 @@ from utills.config import ConfigReader
 
 
 class TestHomeCategory:
+    @pytest.mark.regression
     @allure.severity(Severity.CRITICAL)
     @allure.description("Verify click on home category will open homeware page by verifying the page url ")
     @allure.title("Open homeware page from homepage")
@@ -21,6 +23,7 @@ class TestHomeCategory:
         current_url = self.driver.current_url
         assert current_url == home_category_url
 
+    @pytest.mark.regression
     @allure.severity(Severity.NORMAL)
     @allure.description("open subcategory 'homeware' and verify homeware title as design")
     @allure.title("Homeware page title")
@@ -34,6 +37,7 @@ class TestHomeCategory:
             expected_title = ConfigReader.read_config("titles", "homeware_title")
             assert title == expected_title
 
+    @pytest.mark.regression
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify click on living room subcategory will open living room page by verifying the page url")
     @allure.title("Open living room page from homeware")
@@ -47,6 +51,8 @@ class TestHomeCategory:
             current_url = self.driver.current_url
             assert living_room_page_url == current_url
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify title of living room subcategory as design")
     @allure.title("Living room page title")
@@ -60,6 +66,7 @@ class TestHomeCategory:
         with allure.step("Verify title of the page is 'All Living Room'"):
             assert title == expected_title
 
+    @pytest.mark.regression
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify sort low to high price option will sort products as design")
     @allure.title("Sort page low to high")
@@ -79,6 +86,8 @@ class TestHomeCategory:
         with allure.step("Verify first product price is less expensive than second product"):
             assert price1 < price2
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify click on the product heart button will display red badge in top menu heart button")
     @allure.title("Active red badge - favorites")
@@ -96,6 +105,8 @@ class TestHomeCategory:
                       attachment_type.PNG)
         shopper.click(shopper.REMOVE_PRODUCT_FROM_FAVORITES_BTN)
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify remove product from favorites will remove favorites red badge from top menu")
     @allure.title("Inactive red badge - favorites")
@@ -115,6 +126,8 @@ class TestHomeCategory:
         allure.attach(body=self.driver.get_screenshot_as_png(), name="screenshot", attachment_type=allure.
                       attachment_type.PNG)
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify filter by colour will display product as was requested")
     @allure.title("Filter results by colour")

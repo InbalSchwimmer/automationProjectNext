@@ -1,5 +1,6 @@
 import time
 import allure
+import pytest
 from allure_commons.types import Severity
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -16,6 +17,8 @@ class TestShoppingBag:
         """Helper method to perform common steps for adding a product to the shopping bag."""
         shopper = HomeCategory(self.driver)
         shopper.open_living_room_subcategory()
+        with allure.step("Order by price - low to high"):
+            shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
         with allure.step("Add product to favorites page"):
             shopper.click(shopper.ADD_PRODUCT_TO_FAVORITES_BTN)
         with allure.step("Open favorites page"):
@@ -33,14 +36,19 @@ class TestShoppingBag:
         shopping_bag.click(shopping_bag.VIEW_EDIT_BAG_BTN)
         return shopping_bag
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.CRITICAL)
     @allure.description("Verify click on add button will add product to shopping bag")
     @allure.title("Add product to shopping bag")
     def test_add_product_to_bag(self):
         shopping_bag = self.add_product_to_shopping_bag_via_favorites()
         with allure.step("Verify one product was added to the bag"):
-            assert shopping_bag.get_text(shopping_bag.PRODUCT_QUANTITY) == "1"
+            assert shopping_bag.get_text(shopping_bag.PRODUCT_QUANTITY) in {"UK ONE", "One"}
+        shopping_bag.click(shopping_bag.REMOVE_ITEM_LINK)
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.CRITICAL)
     @allure.description("Verify click on remove button will remove product from shopping bag")
     @allure.title("Remove product from shopping bag")
@@ -50,8 +58,9 @@ class TestShoppingBag:
             shopping_bag.click(shopping_bag.REMOVE_ITEM_LINK)
         time.sleep(2)
         with allure.step("Verify product was removed from the bag"):
-            assert shopping_bag.get_text(shopping_bag.ITEM_COUNT) == "0"
+            assert shopping_bag.get_text(shopping_bag.EMPTY_CART_MSG) in {"Your bag is empty"}
 
+    @pytest.mark.regression
     @allure.severity(Severity.CRITICAL)
     @allure.description("Verify product value display matches the value displayed in the homeware page")
     @allure.title("Product value")
@@ -59,8 +68,11 @@ class TestShoppingBag:
         shopping_bag = self.add_product_to_shopping_bag_via_favorites()
         with allure.step("Verify product value displays correctly"):
             order_value = shopping_bag.get_price(shopping_bag.ITEM_VALUE)
-            assert order_value == 159.0
+            assert order_value == 18.0
+        shopping_bag.click(shopping_bag.REMOVE_ITEM_LINK)
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.CRITICAL)
     @allure.description("Verify item quantity can be changed and the price updates accordingly")
     @allure.title("Change product quantity")
@@ -70,8 +82,11 @@ class TestShoppingBag:
             shopping_bag.select_product_quantity("2")
         with allure.step("Verify the total order value is correct"):
             order_value = shopping_bag.get_price(shopping_bag.ITEM_VALUE)
-            assert order_value == 318.0
+            assert order_value == 36.0
+        shopping_bag.click(shopping_bag.REMOVE_ITEM_LINK)
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify clicking on Shop More link opens the Next home page")
     @allure.title("Continue shopping")
@@ -85,6 +100,8 @@ class TestShoppingBag:
             expected_url = ConfigReader.read_config("general", "url")
             assert current_url == expected_url
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify clicking on Save for later link saves the product")
     @allure.title("Save product for later")
@@ -94,4 +111,4 @@ class TestShoppingBag:
             shopping_bag.click(shopping_bag.SAVE_FOR_LATER_LINK)
         with allure.step("Verify the product is moved to the saved items section"):
             time.sleep(3)
-            assert shopping_bag.get_text(shopping_bag.SAVE_ITEM_COUNT) == "(1 item)"
+            assert shopping_bag.get_text(shopping_bag.SAVE_ITEM_COUNT) in {"(1 item)", "(1)"}

@@ -9,19 +9,20 @@ from utills.config import ConfigReader
 # Capture screenshot on test failure
 def pytest_exception_interact(report):
     if report.failed:
-        allure.attach(body=driver.get_screenshot_as_png(), name="screenshot",
+        allure.attach(body=pytest.driver.get_screenshot_as_png(), name="screenshot",
                       attachment_type=allure.attachment_type.PNG)
 
 
 # Setup driver as a fixture
 @pytest.fixture(scope="class", autouse=True)
 def setup(request):
-    global driver
     driver = webdriver.Chrome()
     request.cls.driver = driver
     driver.maximize_window()
     url = ConfigReader.read_config("general", "url")
     driver.get(url)
+    # Store in pytest's namespace for access elsewhere
+    pytest.driver = driver
     yield
     driver.quit()
 
@@ -29,8 +30,8 @@ def setup(request):
 # Session finish hook for allure report
 def pytest_sessionfinish() -> None:
     environment_properties = {
-        'browser': driver.name,
-        'driver_version': driver.capabilities['browserVersion']
+        'browser': pytest.driver.name,
+        'driver_version': pytest.driver.capabilities['browserVersion']
     }
     allure_env_path = os.path.join("allure-results", 'environment.properties')
     with open(allure_env_path, 'w') as f:
