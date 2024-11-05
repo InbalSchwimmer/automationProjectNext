@@ -1,0 +1,1 @@
+Accept all cookies button did not appear within the timeout period.

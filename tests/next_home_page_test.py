@@ -1,6 +1,7 @@
 import time
 
 import allure
+import pytest
 from allure_commons.types import Severity
 
 from pages.next_home_page import NextHomePage
@@ -15,6 +16,8 @@ from utills.config import ConfigReader
                     " menus, promotional banners, and call-to-action buttons. The goal is to ensure a seamless user"
                     "experience from the first interaction.")
 class TestHomePage:
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify Israel flag display in country selector")
     @allure.title("Open website from Israel - Israel flag displayed")
@@ -24,10 +27,13 @@ class TestHomePage:
         with allure.step("Verify Israel flag display in right hand side country selector"):
             assert user.element_exist(user.ISRAEL_LOCATION)
 
+    @pytest.mark.regression
+    @pytest.mark.functional
     @allure.severity(Severity.NORMAL)
     @allure.description("Verify change Israel to Ireland country will saved")
     @allure.title("Change shopping country flag")
     def test_country_selector(self):
+        self.driver.refresh()
         with allure.step("Change location to Ireland"):
             user = NextHomePage(self.driver)
         with allure.step("Open window for change shopper country and change it to Ireland"):
