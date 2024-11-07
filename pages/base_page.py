@@ -63,4 +63,9 @@ class BasePage:
         except  NoSuchElementException:
             print("Element not exist")
 
+    @staticmethod
+    def remove_trailing_slash(url):
+        result_url = url.rstrip('/')
+        return result_url
+
 
