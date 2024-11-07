@@ -3,7 +3,6 @@ import pytest
 from allure_commons.types import Severity
 from pages.home_category_page import HomeCategory
 from pages.product_details_page import ProductDetails
-from selenium.webdriver.support import expected_conditions as EC
 from utills.config import ConfigReader
 from data.locators import HomeCategoryLocators, ProductDetailsLocators, MenuLocators
 

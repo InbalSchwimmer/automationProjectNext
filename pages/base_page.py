@@ -36,10 +36,11 @@ class BasePage:
         self.click(locator)
 
     def get_price(self, locator):
-        try:
-            WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
-        except TimeoutException:
-            raise ValueError("Price element was not found or visible within the time limit.")
+        self.wait_for_element_visibility(locator)
+        # try:
+        #     WebDriverWait(self.driver, 10).until(EC.visibility_of_element_located(locator))
+        # except TimeoutException:
+        #     raise ValueError("Price element was not found or visible within the time limit.")
         price = self.get_text(locator)  # Get the text from the element
         float_price = float(price.replace('₪', '').strip())
         return float_price
@@ -51,5 +52,15 @@ class BasePage:
             return True
         except NoSuchElementException:
             return False
+
+    def wait_for_element_visibility(self, locator, return_element=False, timeout=10):
+        try:
+            WebDriverWait(self.driver, timeout).until(
+                EC.visibility_of_element_located(locator)
+            )
+            if return_element:
+                return self.driver.find_element(*locator)
+        except  NoSuchElementException:
+            print("Element not exist")
 
 

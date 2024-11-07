@@ -3,7 +3,6 @@ import allure
 import pytest
 from allure_commons.types import Severity
 from pages.next_home_page import NextHomePage
-from utills.config import ConfigReader
 from data.locators import NextHomePageLocators
 
 

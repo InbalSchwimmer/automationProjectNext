@@ -1,7 +1,5 @@
 import time
-
 from selenium.common import NoSuchElementException, TimeoutException
-from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from pages.base_page import BasePage
@@ -9,17 +7,6 @@ from data.locators import NextHomePageLocators
 
 
 class NextHomePage(BasePage):
-    # COUNTRY_SELECTOR_BTN = (By.CSS_SELECTOR, "[data-testid='header-country-lang-flag']")
-    # LOCATION_DROPDOWN = (By.CSS_SELECTOR, "#mui-component-select-country-selector-select")
-    # LOCATION_SHOP_NOW_BTN = (By.XPATH, "//button[text() = 'SHOP NOW']")
-    # ISRAEL_LOCATION = (By.XPATH, "//img[@alt='IL']")
-    # IRELAND_LOCATION = (By.XPATH, "//img[@alt='IE']")
-    # IRELAND_LOCATION_OPTION = (By.CSS_SELECTOR, "[data-value='IE']")
-    # ISRAEL_LOCATION_OPTION = (By.CSS_SELECTOR, "[data-value='IL']")
-    # CONTINUE_BTN = (By.CSS_SELECTOR, "[data-testid='header-country-change-modal-confirm']")
-    # ACCEPT_ALL_COOLIES_BTN = (By.XPATH, "//button[@id = 'onetrust-accept-btn-handler']")
-    # CLOSE_COUNTRY_SELECTOR_WINDOW = (By.CSS_SELECTOR, "[data-testid='country-selector-close-button']")
-    # COUNTRY_SELECTOR_ENGLISH_BTN = (By.CSS_SELECTOR, "[data-ga-v3='English']")
 
     def __init__(self, driver):
         super().__init__(driver)

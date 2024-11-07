@@ -3,8 +3,6 @@ import os
 import time
 import allure
 import pytest
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from pages.guest_checkout_page import GuestCheckout
 from pages.home_category_page import HomeCategory
 from pages.product_details_page import ProductDetails
@@ -30,25 +28,18 @@ class TestCheckout:
     def test_fill_shopper_detail_success(self, load_test_data):
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page - sub category 'Living room'"):
-            WebDriverWait(self.driver,20).until(
-                EC.visibility_of_element_located(HomeCategoryLocators.HOME_CATEGORY_BTN)
-            )
+            shopper.wait_for_element_visibility(HomeCategoryLocators.HOME_CATEGORY_BTN, timeout=20)
             shopper.open_menu_category(HomeCategoryLocators.HOME_CATEGORY_BTN)
             shopper.open_living_room_subcategory()
             shopper.sort_page_results(MenuLocators.SORT_BY_PRICE_LOW_HIGH)
-
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(HomeCategoryLocators.SORT_LOW_TO_HIGH_PRODUCT1)
-        )
+        shopper.wait_for_element_visibility(HomeCategoryLocators.SORT_LOW_TO_HIGH_PRODUCT1)
         with allure.step("Add product to checkout page"):
             shopper.click(HomeCategoryLocators.SORT_LOW_TO_HIGH_PRODUCT1)
             product = ProductDetails(self.driver)
             product.click(ProductDetailsLocators.ADD_TO_BAG_BTN)
             product.click(MenuLocators.CHECKOUT_BTN)
         with allure.step("checkout - continue as a guest"):
-            WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(ProductDetailsLocators.CONTINUE_AS_GUEST)
-            )
+            shopper.wait_for_element_visibility(ProductDetailsLocators.CONTINUE_AS_GUEST)
             product.click(ProductDetailsLocators.CONTINUE_AS_GUEST)
             shop_as_guest = GuestCheckout(self.driver)
         with allure.step("fill guest data"):
@@ -61,10 +52,7 @@ class TestCheckout:
                                               data['street'], data['city'], data['zip_code'])
             shop_as_guest.click(GuestCheckoutLocators.ZIP_CODE_TF)
             shop_as_guest.click(GuestCheckoutLocators.PROVINCE_HAMERKAZ)
-            WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(GuestCheckoutLocators.CONTINUE_BTN)
-            )
-
+            shopper.wait_for_element_visibility(GuestCheckoutLocators.CONTINUE_BTN)
             shop_as_guest.click(GuestCheckoutLocators.CONTINUE_BTN)
             # current_url = self.driver.current_url
             # expected_url = ConfigReader.read_config("general", "home_category_url")
@@ -82,24 +70,18 @@ class TestCheckout:
     def test_guest_invalid_email(self, load_test_data):
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page - sub category 'Living room'"):
-            WebDriverWait(self.driver,10).until(
-                EC.visibility_of_element_located(HomeCategoryLocators.HOME_CATEGORY_BTN)
-            )
+            shopper.wait_for_element_visibility(HomeCategoryLocators.HOME_CATEGORY_BTN)
             shopper.open_menu_category(HomeCategoryLocators.HOME_CATEGORY_BTN)
             shopper.open_living_room_subcategory()
             shopper.sort_page_results(MenuLocators.SORT_BY_PRICE_LOW_HIGH)
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(HomeCategoryLocators.SORT_LOW_TO_HIGH_PRODUCT1)
-        )
+        shopper.wait_for_element_visibility(HomeCategoryLocators.SORT_LOW_TO_HIGH_PRODUCT1)
         with allure.step("Add product to checkout page"):
             shopper.click(HomeCategoryLocators.SORT_LOW_TO_HIGH_PRODUCT1)
             product = ProductDetails(self.driver)
             product.click(ProductDetailsLocators.ADD_TO_BAG_BTN)
             product.click(MenuLocators.CHECKOUT_BTN)
         with allure.step("checkout - continue as a guest"):
-            WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(ProductDetailsLocators.CONTINUE_AS_GUEST)
-            )
+            shopper.wait_for_element_visibility(ProductDetailsLocators.CONTINUE_AS_GUEST)
             product.click(ProductDetailsLocators.CONTINUE_AS_GUEST)
             shop_as_guest = GuestCheckout(self.driver)
         with allure.step("fill guest data"):

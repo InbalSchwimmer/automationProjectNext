@@ -2,8 +2,6 @@ import time
 import allure
 import pytest
 from allure_commons.types import Severity
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from data.locators import HomeCategoryLocators, ProductDetailsLocators, ShoppingBagLocators, MenuLocators
 from pages.home_category_page import HomeCategory
 from pages.product_details_page import ProductDetails
@@ -26,13 +24,9 @@ class TestShoppingBag:
         product = ProductDetails(self.driver)
         shopping_bag = ShoppingBag(self.driver)
         with allure.step("Add product to shopping bag"):
-            WebDriverWait(self.driver, 10).until(
-                EC.visibility_of_element_located(ProductDetailsLocators.ADD_TO_BAG_FROM_FAVOURITE_BTN)
-            )
+            shopping_bag.wait_for_element_visibility(ProductDetailsLocators.ADD_TO_BAG_FROM_FAVOURITE_BTN)
             product.click(ProductDetailsLocators.ADD_TO_BAG_FROM_FAVOURITE_BTN)
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(ShoppingBagLocators.VIEW_EDIT_BAG_BTN)
-        )
+        shopping_bag.wait_for_element_visibility(ShoppingBagLocators.VIEW_EDIT_BAG_BTN)
         shopping_bag.click(ShoppingBagLocators.VIEW_EDIT_BAG_BTN)
         return shopping_bag
 
@@ -99,7 +93,6 @@ class TestShoppingBag:
             # get the expected url from config.ini
             expected_url = ConfigReader.read_config("general", "url")
             assert current_url.rstrip('/') == expected_url.rstrip('/')
-
 
     @pytest.mark.regression
     @pytest.mark.functional
