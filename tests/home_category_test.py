@@ -1,14 +1,11 @@
 import allure
 import pytest
 from allure_commons.types import Severity
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-
 from pages.home_category_page import HomeCategory
 from pages.product_details_page import ProductDetails
 from selenium.webdriver.support import expected_conditions as EC
-
 from utills.config import ConfigReader
+from data.locators import HomeCategoryLocators, ProductDetailsLocators, MenuLocators
 
 
 class TestHomeCategory:
@@ -18,7 +15,7 @@ class TestHomeCategory:
     @allure.title("Open homeware page from homepage")
     def test_open_homeware_page(self):
         shopper = HomeCategory(self.driver)
-        shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
+        shopper.open_menu_category(HomeCategoryLocators.HOME_CATEGORY_BTN)
         home_category_url = ConfigReader.read_config("general", "home_category_url")
         current_url = self.driver.current_url
         assert current_url == home_category_url
@@ -30,9 +27,9 @@ class TestHomeCategory:
     def test_homeware_title(self):
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page - sub category 'Living room'"):
-            shopper.open_menu_category(shopper.HOME_CATEGORY_BTN)
+            shopper.open_menu_category(HomeCategoryLocators.HOME_CATEGORY_BTN)
         with allure.step("Get homeware title and verify title is 'THE HOME SHOP'"):
-            title = shopper.get_text(shopper.HOME_WARE_TITLE)
+            title = shopper.get_text(HomeCategoryLocators.HOME_WARE_TITLE)
             # read title form config.ini
             expected_title = ConfigReader.read_config("titles", "homeware_title")
             assert title == expected_title
@@ -60,7 +57,7 @@ class TestHomeCategory:
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page - sub category 'Living room'"):
             shopper.open_living_room_subcategory()
-        title = shopper.get_text(shopper.LIVING_ROOM_SUBCATEGORY_TITLE)
+        title = shopper.get_text(HomeCategoryLocators.LIVING_ROOM_SUBCATEGORY_TITLE)
         # read title form config.ini
         expected_title=ConfigReader.read_config("titles", "living_room_subcategory_title")
         with allure.step("Verify title of the page is 'All Living Room'"):
@@ -76,13 +73,13 @@ class TestHomeCategory:
         with allure.step("Open homeware page"):
             shopper.open_living_room_subcategory()
         with allure.step("Sort products results by price - low to high"):
-            shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
-            shopper.click(shopper.SORT_LOW_TO_HIGH_PRODUCT1)
+            shopper.sort_page_results(MenuLocators.SORT_BY_PRICE_LOW_HIGH)
+            shopper.click(HomeCategoryLocators.SORT_LOW_TO_HIGH_PRODUCT1)
         with allure.step("get price for two products"):
-            price1 = shopper.get_price(product.PRODUCT_PRICE)
+            price1 = shopper.get_price(ProductDetailsLocators.PRODUCT_PRICE)
             shopper.driver.back()
-            shopper.click(shopper.SORT_LOW_TO_HIGH_PRODUCT2)
-            price2 = shopper.get_price(product.PRODUCT_PRICE)
+            shopper.click(HomeCategoryLocators.SORT_LOW_TO_HIGH_PRODUCT2)
+            price2 = shopper.get_price(ProductDetailsLocators.PRODUCT_PRICE)
         with allure.step("Verify first product price is less expensive than second product"):
             assert price1 < price2
 
@@ -95,15 +92,15 @@ class TestHomeCategory:
         shopper = HomeCategory(self.driver)
         with allure.step("Open homeware page"):
             shopper.open_living_room_subcategory()
-            shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
+            shopper.sort_page_results(MenuLocators.SORT_BY_PRICE_LOW_HIGH)
         with allure.step("Add product to favorites"):
-            shopper.click(shopper.ADD_PRODUCT_TO_FAVORITES_BTN)
+            shopper.click(HomeCategoryLocators.ADD_PRODUCT_TO_FAVORITES_BTN)
         with allure.step("Verify favorite bade display"):
-            assert shopper.ACTIVE_FAVORITE_BADGE
+            assert HomeCategoryLocators.ACTIVE_FAVORITE_BADGE
         # take screenshot to verify favorites badge exist
         allure.attach(body=self.driver.get_screenshot_as_png(), name="screenshot", attachment_type=allure.
                       attachment_type.PNG)
-        shopper.click(shopper.REMOVE_PRODUCT_FROM_FAVORITES_BTN)
+        shopper.click(HomeCategoryLocators.REMOVE_PRODUCT_FROM_FAVORITES_BTN)
 
     @pytest.mark.regression
     @pytest.mark.functional
@@ -115,13 +112,13 @@ class TestHomeCategory:
             shopper = HomeCategory(self.driver)
             shopper.open_living_room_subcategory()
         with allure.step("Sort products results by price - low to high"):
-            shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
+            shopper.sort_page_results(MenuLocators.SORT_BY_PRICE_LOW_HIGH)
         with allure.step("Add product to favorites"):
-            shopper.click(shopper.ADD_PRODUCT_TO_FAVORITES_BTN)
+            shopper.click(HomeCategoryLocators.ADD_PRODUCT_TO_FAVORITES_BTN)
         with allure.step("Remove product from favorites"):
-            shopper.click(shopper.REMOVE_PRODUCT_FROM_FAVORITES_BTN)
+            shopper.click(HomeCategoryLocators.REMOVE_PRODUCT_FROM_FAVORITES_BTN)
         with allure.step("Verify favorite bade not display"):
-            assert shopper.INACTIVE_FAVORITE_BADGE
+            assert HomeCategoryLocators.INACTIVE_FAVORITE_BADGE
         # take screenshot to verify favorites badge not exist
         allure.attach(body=self.driver.get_screenshot_as_png(), name="screenshot", attachment_type=allure.
                       attachment_type.PNG)
@@ -136,11 +133,11 @@ class TestHomeCategory:
             shopper = HomeCategory(self.driver)
             shopper.open_living_room_subcategory()
         with allure.step("Choose filter colour"):
-            shopper.click(shopper.FILTER_BY_COLOR_BTN)
-            shopper.click(shopper.BLUE_CHECK_BOX)
-            shopper.sort_page_results(shopper.SORT_BY_PRICE_LOW_HIGH)
+            shopper.click(MenuLocators.FILTER_BY_COLOR_BTN)
+            shopper.click(MenuLocators.BLUE_CHECK_BOX)
+            shopper.sort_page_results(MenuLocators.SORT_BY_PRICE_LOW_HIGH)
         with allure.step("Verify first product description contains 'Blue'"):
-            first_blue_product = shopper.get_text(shopper.FIRST_HOMEWARE_BLUE_PRODUCT)
+            first_blue_product = shopper.get_text(HomeCategoryLocators.FIRST_HOMEWARE_BLUE_PRODUCT)
             assert "blue" in first_blue_product.lower()
 
 

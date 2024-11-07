@@ -1,11 +1,10 @@
 import time
-
 import allure
 import pytest
 from allure_commons.types import Severity
-
 from pages.next_home_page import NextHomePage
 from utills.config import ConfigReader
+from data.locators import NextHomePageLocators
 
 
 @allure.epic("User Interface and Navigation Testing")
@@ -25,7 +24,7 @@ class TestHomePage:
         user = NextHomePage(self.driver)
         user.accept_all_cookies()
         with allure.step("Verify Israel flag display in right hand side country selector"):
-            assert user.element_exist(user.ISRAEL_LOCATION)
+            assert user.element_exist(NextHomePageLocators.ISRAEL_LOCATION)
 
     @pytest.mark.regression
     @pytest.mark.functional
@@ -37,14 +36,14 @@ class TestHomePage:
         with allure.step("Change location to Ireland"):
             user = NextHomePage(self.driver)
         with allure.step("Open window for change shopper country and change it to Ireland"):
-            user.change_shopping_country(user.IRELAND_LOCATION_OPTION)
+            user.change_shopping_country(NextHomePageLocators.IRELAND_LOCATION_OPTION)
         with allure.step("Accept all coolies"):
             user.accept_all_cookies()
         with allure.step("Close change shopper country window"):
-            user.click(user.CLOSE_COUNTRY_SELECTOR_WINDOW)
+            user.click(NextHomePageLocators.CLOSE_COUNTRY_SELECTOR_WINDOW)
             time.sleep(10)
             allure.attach(body=self.driver.get_screenshot_as_png(), name="screenshot", attachment_type=allure.
                           attachment_type.PNG)
         with allure.step("Verify Ireland flag display"):
-            assert user.element_exist(user.IRELAND_LOCATION)
-        user.change_shopping_country(user.ISRAEL_LOCATION_OPTION)
+            assert user.element_exist(NextHomePageLocators.IRELAND_LOCATION)
+        user.change_shopping_country(NextHomePageLocators.ISRAEL_LOCATION_OPTION)
