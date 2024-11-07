@@ -92,7 +92,7 @@ class TestShoppingBag:
             current_url = self.driver.current_url
             # get the expected url from config.ini
             expected_url = ConfigReader.read_config("general", "url")
-            assert current_url.rstrip('/') == expected_url.rstrip('/')
+            assert shopping_bag.remove_trailing_slash(current_url) == shopping_bag.remove_trailing_slash(expected_url)
 
     @pytest.mark.regression
     @pytest.mark.functional
